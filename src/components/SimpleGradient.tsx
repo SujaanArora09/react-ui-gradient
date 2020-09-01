@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
-import gradients from '../gradients.json';
 import { ArgsType } from '../types';
+import gradients from '../gradients.json';
 import { GradientKeys } from '../gradient-types';
 /**
  * Most bare bones gradient component
@@ -47,8 +47,8 @@ const SimpleGradient: React.FC<SimpleGradientProps> = ({
       className: `react-ui-gradient ${className}`,
       style: {
         ...style,
-        [property]: `${type}-gradient(${angle},${finalGradient.join(',')}`
-      }
+        [property]: `${type}-gradient(${angle},${finalGradient.join(',')}`,
+      },
     },
     children
   );
