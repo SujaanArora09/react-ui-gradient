@@ -1,10 +1,9 @@
 import React from 'react'
 
-import { ExampleComponent } from 'react-ui-gradient'
-import 'react-ui-gradient/dist/index.css'
+import SimpleGradient from 'react-ui-gradient'
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  return <SimpleGradient gradient={"Dark Ocean"} element='h1' property='backgroundImage' style={{WebkitTextFillColor: 'transparent', WebkitBackgroundClip: 'text', fontSize:'100px'}}>Hello World!</SimpleGradient>
 }
 
 export default App
