@@ -3,15 +3,16 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import SimpleGradient from '../src';
 import { useEffect, useState } from 'react';
+import AnimatedGradient from '../src/components/AnimatedGradient';
 
 const App = () => {
-  const [deg, setDeg] = useState(0);
-  useEffect(() => {
-    setTimeout(() => {
-      setDeg(deg + 1);
-    }, 50);
+  const [angle,setAngle] = useState(0);
+  useEffect(()=>{
+    setTimeout(()=>setAngle(360),3000)
+    setTimeout(()=>setAngle(180),7000)
+    setTimeout(()=>setAngle(10),11000)
 
-  },[deg]);
+  },[])
   return (
     <SimpleGradient
       gradient={'Dawn'}
@@ -24,15 +25,16 @@ const App = () => {
         justifyContent: 'center',
       }}
     >
-      <SimpleGradient
-        gradient={'After the Rain'}
+      <AnimatedGradient
+        gradient={'Army'}
         element={'h1'}
         style={{ fontWeight: 'bold', fontSize: '100px' }}
         target={'text'}
-        angle={deg + 'deg'}
+        angle={angle}
+        angleDuration={4000}
       >
         React UI Gradient
-      </SimpleGradient>
+      </AnimatedGradient>
     </SimpleGradient>
   );
 };

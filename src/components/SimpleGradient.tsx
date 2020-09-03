@@ -1,39 +1,39 @@
 import React, { CSSProperties } from 'react';
-import { ArgsType } from '../types';
 import gradients from '../gradients.json';
 import { GradientKeys } from '../gradient-types';
 
-type BaseProps = {
+type CreateElementType = React.FC<any> | string;
+
+type BaseProps = React.PropsWithChildren<{
   gradient: string[] | GradientKeys;
   target?: 'text' | 'border' | 'background';
-  element?: ArgsType<typeof React.createElement>[0];
+  element?: CreateElementType;
   className?: string;
   style?: CSSProperties;
   [key: string]: any;
-};
+  // TODO commented out cause I can't work out how to infer the element props correctly ... this type used to have an 'E' generic
+} /*& (E extends React.FunctionComponent<infer U> ? U : {})*/>;
 
-// TODO type the props of 'element' into this typing using generics.
 export type SimpleGradientProps =
-  | (BaseProps & { type?: 'linear'; angle?: string })
+  | (BaseProps & { type?: 'linear'; angle?: number })
   // radial has no angle, lets ban it using TS
   | (BaseProps & { type?: 'radial'; angle?: never });
 
-// TODO use property keyword to apply to border/background/text
 /**
  * Most bare bones gradient component
  *
  * @param gradient value of gradient for this component
  * @param type gradient type (linear or radial)
  * @param target where to apply to (background, border or text)
- * @param angle CSS angle of gradient (linear only)
+ * @param angle in degrees
  * @param element Type of element to base off (DOM element or React Component)
  * Supports classname and style.
  */
-const SimpleGradient: React.FC<SimpleGradientProps> = ({
+function SimpleGradient({
   gradient,
   type = 'linear',
   target = 'background',
-  angle = '0deg',
+  angle = 0,
   element = 'div',
   className = '',
   style,
@@ -41,7 +41,7 @@ const SimpleGradient: React.FC<SimpleGradientProps> = ({
   children,
 
   ...rest
-}) => {
+}: SimpleGradientProps) {
   // use given gradient or find it in the uigradients json.
   const finalGradient =
     typeof gradient === 'string' ? gradients[gradient] : gradient;
@@ -63,7 +63,7 @@ const SimpleGradient: React.FC<SimpleGradientProps> = ({
     finalStyle.border = '10px solid';
 
   finalStyle[property] = `${type}-gradient(${
-    type === 'linear' ? angle + ',' : ''
+    type === 'linear' ? angle + 'deg,' : ''
   }${finalGradient.join(',')}) ${target === 'border' ? '1' : ''}`;
 
   return React.createElement<any>(
@@ -75,6 +75,6 @@ const SimpleGradient: React.FC<SimpleGradientProps> = ({
     },
     children
   );
-};
+}
 
 export default SimpleGradient;
