@@ -15,15 +15,14 @@ const AnimatedGradient: React.FC<AnimatedGradientProps> = (Base => ({
   gradientDuration,
   ...props
 }: AnimatedGradientProps) => {
-  const [angle, setAngle] = useState<AnimatedGradientProps['angle']>();
-  const [gradient, setGradient] = useState<AnimatedGradientProps['gradient']>();
+  const [angle, setAngle] = useState<AnimatedGradientProps['angle']>(
+    props.angle
+  );
+  const [gradient, setGradient] = useState<AnimatedGradientProps['gradient']>(
+    props.gradient
+  );
 
   const angleAnimationId = useRef<number | undefined>();
-  // initially there's no animation, just whatever props are.
-  useEffect(() => {
-    setAngle(props.angle);
-    setGradient(props.gradient);
-  }, []);
 
   // angle animation
   useEffect(() => {
