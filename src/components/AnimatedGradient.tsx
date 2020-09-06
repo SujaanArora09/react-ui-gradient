@@ -2,7 +2,7 @@ import SimpleGradient, { SimpleGradientProps } from './SimpleGradient';
 import React, { useEffect, useRef, useState } from 'react';
 
 export type AnimatedGradientProps = {
-  // I really cbs typing this to be never if type is radial.
+  // I really cbs typing this to be never if type is radial. I don't see it as being too important, maybe in the future?
   angleDuration?: number;
   gradientDuration?: number;
 } & SimpleGradientProps;
@@ -11,8 +11,9 @@ export type AnimatedGradientProps = {
  * Component which animates transitions between gradient and angle props when they are changed.
  */
 const AnimatedGradient: React.FC<AnimatedGradientProps> = (Base => ({
-  angleDuration,
-  gradientDuration,
+  // default is instantaneous. 0 would be dividing by 0, so 1 is better.
+  angleDuration = 1,
+  gradientDuration = 1,
   ...props
 }: AnimatedGradientProps) => {
   const [angle, setAngle] = useState<AnimatedGradientProps['angle']>(
@@ -26,8 +27,7 @@ const AnimatedGradient: React.FC<AnimatedGradientProps> = (Base => ({
 
   // angle animation
   useEffect(() => {
-    // default is instantaneous. 0 would be dividing by 0, so 1 is better.
-    const duration = angleDuration || 1;
+    const duration = angleDuration;
     const startTime = Date.now();
     const startAngle = angle || 0;
     const endAngle = props.angle;
@@ -51,6 +51,10 @@ const AnimatedGradient: React.FC<AnimatedGradientProps> = (Base => ({
         window.cancelAnimationFrame(angleAnimationId.current);
     };
   }, [props.angle]);
+
+  //gradient animation
+  useEffect(() => {}, [props.gradient]);
+
   // TS doesn't know whether the type is linear or radial, so we work it out and cast as any to avoid TS complaining
   // extra || because default type linear, so checking for that.
   return (
