@@ -1,9 +1,9 @@
 import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import SimpleGradient from '../src';
+import Gradient from '../src';
 import { useEffect, useState } from 'react';
-import AnimatedGradient from '../src/components/AnimatedGradient';
+import AnimatedGradient from '../src/components/AnimatedAngleAddon';
 
 const App = () => {
   const [angle,setAngle] = useState(0);
@@ -14,7 +14,7 @@ const App = () => {
 
   },[])
   return (
-    <SimpleGradient
+    <Gradient
       gradient={'Dawn'}
       type={'radial'}
       style={{
@@ -25,7 +25,7 @@ const App = () => {
         justifyContent: 'center',
       }}
     >
-      <AnimatedGradient
+      <Gradient
         gradient={'Army'}
         element={'h1'}
         style={{ fontWeight: 'bold', fontSize: '100px' }}
@@ -34,8 +34,8 @@ const App = () => {
         angleDuration={4000}
       >
         React UI Gradient
-      </AnimatedGradient>
-    </SimpleGradient>
+      </Gradient>
+    </Gradient>
   );
 };
 

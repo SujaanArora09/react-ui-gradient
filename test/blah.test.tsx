@@ -14,7 +14,7 @@ describe('it', () => {
   });
 
   it('extends element props', () => {
-    const el = <SimpleGradient gradient={'Abbas'} element={Hello} />;
+    const el = <SimpleGradient gradient={'Abbas'} element={Hello}  />;
     console.log(el.props);
   });
 });

@@ -1,2 +1,5 @@
 import SimpleGradient from './components/SimpleGradient';
-export default SimpleGradient;
+import AnimatedAngleAddon from './components/AnimatedAngleAddon';
+import { AnimatedGradientAddon } from './components/AnimatedGradientProps';
+
+export default AnimatedGradientAddon(AnimatedAngleAddon(SimpleGradient));
